@@ -51,7 +51,8 @@ tracePortParent.Ports = get_param(tracePortParent.H,'PortHandles');
 % The parent of the parent of the port (a subsystem or the top level diagram)
 tracePortParentSystem.H = get_param(tracePortParent.H,'Parent');
 
-%% Determine if the block is a stop block
+%% Determine if the block is a stop block 
+%  if it is, add it to the results table
 isStopBlock = false;
 if any(strcmp(tracePortParent.Type,stopBlocks.type))
     if any(strcmp(tracePortParentSystem.H,stopBlocks.parent))
@@ -63,8 +64,8 @@ if any(strcmp(tracePortParent.Type,stopBlocks.type))
                     tracePortParent.Name,tracePortParentSystem.H,bussedName);
             end
             hBlock.Name = get_param(obj.hBlock,'Name');
-            t = table({hBlock.Name},{tracePortParent.Name},{tracePortParentSystem.H},{bussedName}, ...
-                'VariableNames',{'PortName','ObjectName','ParentName','BusName'});
+            t = table({hBlock.Name},{tracePortParent.Name},{tracePortParentSystem.H},{bussedName},{tracePortParent.H}, ...
+                'VariableNames',{'PortName','ObjectName','ParentName','BusName','Handle'});
             if ~isempty(obj.results)
                 obj.results = [obj.results; t];
             else
