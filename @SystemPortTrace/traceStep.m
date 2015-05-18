@@ -65,7 +65,11 @@ if any(strcmp(tracePortParent.Type,stopBlocks.type))
             hBlock.Name = get_param(obj.hBlock,'Name');
             t = table({hBlock.Name},{tracePortParent.Name},{tracePortParentSystem.H},{bussedName}, ...
                 'VariableNames',{'PortName','ObjectName','ParentName','BusName'});
-            obj.results = [obj.results; t];
+            if ~isempty(obj.results)
+                obj.results = [obj.results; t];
+            else
+                obj.results = t;
+            end
         end
     end
 end

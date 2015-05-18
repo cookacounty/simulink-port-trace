@@ -12,7 +12,7 @@ classdef SystemPortTrace < handle
         stopBlocks;
         verbose = 0;
         busNames = {}; %Names of valid busses
-        results = {}
+        results; % A table of results
     end
     methods
         function obj = SystemPortTrace(stopBlocks)
